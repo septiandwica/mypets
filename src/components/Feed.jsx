@@ -171,199 +171,168 @@ const Feed = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex justify-center items-center">
-        <div className="relative">
-          <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-blue-600 rounded-full opacity-20 animate-pulse"></div>
-        </div>
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 to-pink-50 flex justify-center items-center">
-        <div className="text-center p-8 bg-white rounded-2xl shadow-xl border border-red-100">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-            </svg>
-          </div>
-          <h2 className="text-2xl font-bold text-red-700 mb-2">Oops! Something went wrong</h2>
-          <p className="text-red-600 opacity-80">{error}</p>
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-red-600 mb-4">Error</h2>
+          <p className="text-gray-600">{error}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      <div className="max-w-4xl mx-auto px-4 py-6">
+    <div className="lg:ml-64 min-h-screen flex justify-center">
+      <div className="w-full max-w-4xl p-4">
         {/* Header */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 p-8 mb-8">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
-              RateMyPets
-            </h1>
-            <p className="text-gray-600 text-lg">
-              Share your pet stories and connect with fellow pet lovers!
-            </p>
-          </div>
+        <div className="bg-white rounded-lg shadow p-6 mb-6">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">RateMyPets</h1>
+          <p className="text-gray-600">
+            Share your pet stories and rate other pets!
+          </p>
         </div>
 
-        {/* Create Post Button */}
-        <div className="mb-8 flex justify-end">
+        {/* Tombol Create Post */}
+        <div className="mb-6 flex justify-end">
           <button
             onClick={() => dispatch(showPostForm())}
-            className="group relative overflow-hidden px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200 shadow"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-700 transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-2xl"></div>
-            <div className="relative flex items-center space-x-2">
-              <MdAddCircle className="w-5 h-5" />
-              <span>Create Post</span>
-            </div>
+            <MdAddCircle className="mr-2 w-6 h-6" />
+            Create Post
           </button>
         </div>
 
         {/* Posts */}
         <div className="space-y-6">
           {currentPosts.map((post) => (
-            <div key={post._id} className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 overflow-hidden hover:shadow-2xl transition-all duration-300">
+            <div key={post._id} className="bg-white rounded-lg shadow p-6">
               {/* Post Header */}
-              <div className="p-6 pb-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className="relative">
-                      <img
-                        className="h-12 w-12 rounded-full object-cover ring-2 ring-white shadow-md"
-                        src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                        alt="User"
-                      />
-                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></div>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-800 text-lg">
-                        {post.author?.username || "Anonymous"}
-                      </h3>
-                      <p className="text-sm text-gray-500">
-                        {getTimeAgo(new Date(post.createdAt))}
-                      </p>
-                    </div>
-                  </div>
-                  {canEditDeletePost(post) && (
-                    <div className="flex space-x-2">
-                      <button
-                        onClick={() => handleEditPost(post)}
-                        className="p-2 text-blue-500 hover:bg-blue-50 rounded-xl transition-colors duration-200"
-                      >
-                        <FaEdit className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => handleDeletePost(post)}
-                        className="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-colors duration-200"
-                      >
-                        <FaTrash className="h-4 w-4" />
-                      </button>
-                    </div>
-                  )}
+              <div className="flex items-center mb-4">
+                <img
+                  className="h-10 w-10 rounded-full object-cover mr-3"
+                  src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                  alt="User"
+                />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-800">
+                    {post.author?.username || "Anonymous"}
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    {getTimeAgo(new Date(post.createdAt))}
+                  </p>
                 </div>
+                {canEditDeletePost(post) && (
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => handleEditPost(post)}
+                      className="text-blue-500 hover:text-blue-700 transition-colors duration-200"
+                    >
+                      <FaEdit className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDeletePost(post)}
+                      className="text-red-500 hover:text-red-700 transition-colors duration-200"
+                    >
+                      <FaTrash className="h-4 w-4" />
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Post Content */}
-              <div className="px-6 pb-4">
+              <div className="mb-4">
                 {/* Pet Name */}
+
+                {/* Tampilkan gambar jika ada */}
+                {(post.imageUrl || post.image) && (
+                  <img
+                    src={post.imageUrl || post.image}
+                    alt="Pet"
+                    className="w-full rounded-lg mt-2"
+                  />
+                )}
+
                 {post.petName && (
-                  <h5 className="text-2xl font-bold text-gray-900 mb-3">
+                  <h5 className="text-xl font-bold text-gray-900 mb-2">
                     {post.petName}
                   </h5>
                 )}
 
                 {/* Caption */}
                 {post.caption && (
-                  <p className="text-gray-700 mb-4 text-lg leading-relaxed">
-                    {post.caption}
-                  </p>
-                )}
-
-                {/* Pet Image */}
-                {(post.imageUrl || post.image) && (
-                  <div className="rounded-2xl overflow-hidden shadow-lg">
-                    <img
-                      src={post.imageUrl || post.image}
-                      alt="Pet"
-                      className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
+                  <p className="text-gray-700 mb-3">{post.caption}</p>
                 )}
               </div>
 
               {/* Post Actions */}
-              <div className="px-6 py-4 bg-gray-50/50 border-t border-gray-100">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-6">
-                    <button
-                      onClick={() => handleLike(post)}
-                      className="group flex items-center space-x-2 text-gray-600 hover:text-red-500 transition-colors duration-200"
-                    >
-                      {post.likedBy && post.likedBy.includes(user?.userId) ? (
-                        <FaHeart className="h-5 w-5 text-red-500 group-hover:scale-110 transition-transform duration-200" />
-                      ) : (
-                        <FaRegHeart className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />
-                      )}
-                      <span className="font-medium">{post.likes || 0}</span>
-                    </button>
-                    <button className="group flex items-center space-x-2 text-gray-600 hover:text-blue-500 transition-colors duration-200">
-                      <FaRegComment className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />
-                      <span className="font-medium">{post.comments?.length || 0}</span>
-                    </button>
-                  </div>
+              <div className="flex items-center justify-between border-t pt-4">
+                <div className="flex items-center space-x-4">
+                  <button
+                    onClick={() => handleLike(post)}
+                    className="flex items-center space-x-1 text-gray-500 hover:text-red-500 transition-colors duration-200"
+                  >
+                    {post.likedBy && post.likedBy.includes(user?.userId) ? (
+                      <FaHeart className="h-5 w-5 text-red-500" />
+                    ) : (
+                      <FaRegHeart className="h-5 w-5" />
+                    )}
+                    <span>{post.likes || 0}</span>
+                  </button>
+                  <button className="flex items-center space-x-1 text-gray-500 hover:text-blue-500 transition-colors duration-200">
+                    <FaRegComment className="h-5 w-5" />
+                    <span>{post.comments?.length || 0}</span>
+                  </button>
                 </div>
               </div>
 
               {/* Comments Section */}
-              <div className="border-t border-gray-100">
-                <CommentSection postId={post._id} comments={post.comments} />
-              </div>
+              <CommentSection postId={post._id} comments={post.comments} />
             </div>
           ))}
         </div>
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex justify-center items-center space-x-3 mt-12">
+          <div className="flex justify-center items-center space-x-2 mt-8">
             <button
               onClick={goToPreviousPage}
               disabled={currentPage === 1}
-              className="p-3 rounded-2xl bg-white/80 backdrop-blur-sm border border-white/20 text-gray-700 hover:bg-white hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+              className="px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
             >
               <FaChevronLeft className="h-4 w-4" />
             </button>
 
-            <div className="flex space-x-2">
-              {getPageNumbers().map((pageNumber, index) => (
-                <button
-                  key={index}
-                  onClick={() =>
-                    typeof pageNumber === "number" && paginate(pageNumber)
-                  }
-                  disabled={pageNumber === "..."}
-                  className={`px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
-                    pageNumber === currentPage
-                      ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg transform scale-105"
-                      : pageNumber === "..."
-                      ? "bg-transparent text-gray-400 cursor-default"
-                      : "bg-white/80 backdrop-blur-sm text-gray-700 border border-white/20 hover:bg-white hover:shadow-lg hover:scale-105"
-                  }`}
-                >
-                  {pageNumber}
-                </button>
-              ))}
-            </div>
+            {getPageNumbers().map((pageNumber, index) => (
+              <button
+                key={index}
+                onClick={() =>
+                  typeof pageNumber === "number" && paginate(pageNumber)
+                }
+                disabled={pageNumber === "..."}
+                className={`px-3 py-2 rounded-lg border transition-colors duration-200 ${
+                  pageNumber === currentPage
+                    ? "bg-blue-500 text-white border-blue-500"
+                    : pageNumber === "..."
+                    ? "bg-white text-gray-400 border-gray-300 cursor-default"
+                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                }`}
+              >
+                {pageNumber}
+              </button>
+            ))}
 
             <button
               onClick={goToNextPage}
               disabled={currentPage === totalPages}
-              className="p-3 rounded-2xl bg-white/80 backdrop-blur-sm border border-white/20 text-gray-700 hover:bg-white hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+              className="px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
             >
               <FaChevronRight className="h-4 w-4" />
             </button>
