@@ -189,7 +189,7 @@ const Feed = () => {
   }
 
   return (
-    <div className="lg:ml-64 min-h-screen flex justify-center">
+    <div className="min-h-screen flex justify-center">
       <div className="w-full max-w-4xl p-4">
         {/* Header */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
