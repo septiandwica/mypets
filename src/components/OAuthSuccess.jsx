@@ -27,7 +27,7 @@ const OAuthSuccess = () => {
       dispatch(setUser(user));
 
       // Redirect ke halaman utama
-      navigate("/");
+      navigate( import.meta.env.VITE_CLIENT_URL || "/");
     }
   }, [dispatch, navigate]);
 
