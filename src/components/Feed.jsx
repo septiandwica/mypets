@@ -250,21 +250,7 @@ const Feed = () => {
               {/* Post Content */}
               <div className="mb-4">
                 {/* Pet Name */}
-                {post.petName && (
-                  <h5 className="text-xl font-bold text-gray-900 mb-2">
-                    {post.petName}
-                  </h5>
-                )}
-
-                {/* Caption */}
-                {post.caption && (
-                  <p className="text-gray-700 mb-3">{post.caption}</p>
-                )}
-
-                {/* Content */}
-                {post.content && (
-                  <p className="text-gray-800 mb-3">{post.content}</p>
-                )}
+          
 
                 {/* Tampilkan gambar jika ada */}
                 {(post.imageUrl || post.image) && (
@@ -273,6 +259,17 @@ const Feed = () => {
                     alt="Pet"
                     className="w-full rounded-lg mt-2"
                   />
+                )}
+
+{post.petName && (
+                  <h5 className="text-xl font-bold text-gray-900 mb-2">
+                    {post.petName}
+                  </h5>
+                )}
+
+                {/* Caption */}
+                {post.caption && (
+                  <p className="text-gray-700 mb-3">{post.caption}</p>
                 )}
               </div>
 
