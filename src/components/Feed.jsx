@@ -189,8 +189,8 @@ const Feed = () => {
   }
 
   return (
-    <div className="lg:ml-64 min-h-screen">
-      <div className="max-w-4xl mx-auto p-4">
+    <div className="lg:ml-64 min-h-screen flex justify-center">
+      <div className="w-full max-w-4xl p-4">
         {/* Header */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">RateMyPets</h1>
@@ -250,7 +250,6 @@ const Feed = () => {
               {/* Post Content */}
               <div className="mb-4">
                 {/* Pet Name */}
-          
 
                 {/* Tampilkan gambar jika ada */}
                 {(post.imageUrl || post.image) && (
@@ -261,7 +260,7 @@ const Feed = () => {
                   />
                 )}
 
-{post.petName && (
+                {post.petName && (
                   <h5 className="text-xl font-bold text-gray-900 mb-2">
                     {post.petName}
                   </h5>
