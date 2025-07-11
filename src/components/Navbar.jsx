@@ -63,6 +63,17 @@ function NavBar() {
                 )}
               </div>
             ))}
+
+            {/* Tombol Create Post di sidebar desktop */}
+            {user && (
+              <button
+                onClick={handleOpenPostForm}
+                className="flex items-center px-4 py-3 mx-2 rounded-lg text-blue-600 hover:bg-blue-50 transition-colors duration-200 w-full text-left"
+              >
+                <MdAddCircle className="h-6 w-6 mr-3" />
+                <span className="text-base">Create Post</span>
+              </button>
+            )}
           </div>
 
           <div className="p-4 border-t border-gray-200">
@@ -116,8 +127,8 @@ function NavBar() {
           </div>
         </div>
 
-        {/* Bottom Navigation for Mobile */}
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 md:hidden z-50 shadow-lg">
+        {/* Bottom Navigation for Mobile & Tablet */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 lg:hidden z-50 shadow-lg">
           <div className="flex justify-around">
             {navItems.map((item, index) => (
               <div key={index}>

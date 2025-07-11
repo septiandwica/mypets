@@ -52,15 +52,17 @@ function App() {
     <Router>
       <LoginRedirector />
       {isAuthenticated && <NavBar />}
-      <Routes>
-        <Route path="/" element={isAuthenticated ? <Feed /> : <Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/oauth-success" element={<OAuthSuccess />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <div className={isAuthenticated ? "lg:ml-64 pb-20 lg:pb-0" : ""}>
+        <Routes>
+          <Route path="/" element={isAuthenticated ? <Feed /> : <Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/oauth-success" element={<OAuthSuccess />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
       {showPostForm && <PostForm onClose={handleClosePostForm} />}
     </Router>
   );
