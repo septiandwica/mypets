@@ -1,12 +1,13 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL; 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // Fungsi untuk melakukan POST request
 const postRequest = async (endpoint, body, token = null) => {
   try {
     const headers = {
       "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": "1111",
     };
-    
+
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
     }
@@ -29,8 +30,14 @@ const postRequest = async (endpoint, body, token = null) => {
 // Fungsi untuk melakukan GET request
 const getRequest = async (endpoint) => {
   try {
-    const res = await fetch(`${API_BASE_URL}${endpoint}`);
+    const headers = {
+      "ngrok-skip-browser-warning": "1111",
+    };
+    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+      headers,
+    });
     const data = await res.json();
+
     if (!res.ok) {
       throw new Error(data.error || "Something went wrong!");
     }
@@ -47,7 +54,8 @@ const patchRequest = async (endpoint, body, token) => {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "1111",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     });
@@ -68,7 +76,8 @@ const putRequest = async (endpoint, body, token) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "1111",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     });
@@ -88,7 +97,8 @@ const deleteRequest = async (endpoint, token) => {
     const res = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: "DELETE",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "1111",
+        Authorization: `Bearer ${token}`,
       },
     });
     const data = await res.json();
@@ -158,6 +168,7 @@ export const requestPasswordReset = async (email) => {
     const res = await fetch(`${API_BASE_URL}/password-reset`, {
       method: "POST",
       headers: {
+        "ngrok-skip-browser-warning": "1111",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email }),
@@ -178,6 +189,7 @@ export const validateResetToken = async (token) => {
     const res = await fetch(`${API_BASE_URL}/password-reset?token=${token}`, {
       method: "GET",
       headers: {
+        "ngrok-skip-browser-warning": "1111",
         "Content-Type": "application/json",
       },
     });
@@ -197,6 +209,7 @@ export const resetPassword = async (token, password) => {
     const res = await fetch(`${API_BASE_URL}/password-reset/confirm`, {
       method: "POST",
       headers: {
+        "ngrok-skip-browser-warning": "1111",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ token, password }),
@@ -221,10 +234,10 @@ export const startGoogleOAuth = () => {
 export const handleGoogleOAuthCallback = (search) => {
   // search: window.location.search (misal: ?token=xxx)
   const params = new URLSearchParams(search);
-  const token = params.get('token');
+  const token = params.get("token");
   if (token) {
     // Simpan token ke localStorage
-    localStorage.setItem('token', token);
+    localStorage.setItem("token", token);
     // (Opsional) bisa fetch user info dari backend pakai token jika backend support
     return token;
   }
